@@ -7,5 +7,5 @@ def brand_list(event):
     else:
         brand_list = ""
         for brand in search_brands:
-            brand_list += brand["name"] + "¥n"
+            brand_list += brand["name"] + "\n"
         return brand_list
