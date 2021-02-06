@@ -50,11 +50,27 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    brand_list = rm.brand_list(event)
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=brand_list)
-    )
+    search_condition = rm.search_brand(event)
+
+    #該当する銘柄が見つからなかった場合
+    if search_condition[0] == 0:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="一致する銘柄は見つかりませんでした。\n別の検索ワードをお試しください。")
+        )
+    elif search_condition[0] == 1:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="該当する銘柄が見つかりませんでした。\n候補となる銘柄が多すぎます。別の検索ワードをお試しください。")
+        )
+    elif search_condition[0] == 2:
+        brand_list = search_condition[1]
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="該当する銘柄が見つかりませんでした。\n以下の銘柄をお探しでしょうか？"),
+            TextSendMessage(text=brand_list)
+        )
+
 
 #    line_bot_api.reply_message(
 #        event.reply_token,
