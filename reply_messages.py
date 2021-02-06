@@ -24,5 +24,5 @@ def search_brand(event):
         brand_list = ""
         for brand in search_brands:
             brand_list += brand["name"] + "\n"
-        brand_list = brand_list.rstrip
+        brand_list = brand_list.rstrip()
         return 3, brand_list

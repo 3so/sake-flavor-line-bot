@@ -70,7 +70,7 @@ def handle_message(event):
     elif search_condition[0] == 2:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="該当する銘柄が見つかりませんでした。表示候補となる銘柄が多すぎます。別の検索ワードをお試しください。")
+            TextSendMessage(text="一致する銘柄が見つかりませんでした。また、部分一致となる銘柄が多すぎます。別の検索ワードをお試しください。")
         )
 
     # 完全一致の銘柄が見つからず、かつ部分一致の銘柄が30種類以下見つかった場合
@@ -78,7 +78,7 @@ def handle_message(event):
         brand_list = search_condition[1]
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=("該当する銘柄が見つかりませんでした。以下の銘柄をお探しでしょうか？\n\n" + brand_list))
+            TextSendMessage(text=("該当する銘柄が見つかりませんでした。また、部分一致となる銘柄が複数見つかりました。以下の銘柄をお探しでしょうか？\n\n" + brand_list))
         )
 
 
