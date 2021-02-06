@@ -52,22 +52,33 @@ def callback():
 def handle_message(event):
     search_condition = rm.search_brand(event)
 
-    #該当する銘柄が見つからなかった場合
+    # 完全一致の銘柄が見つかった場合
     if search_condition[0] == 0:
+        brand_name = search_condition[1]
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name))
+        )
+    # 完全一致の銘柄、部分一致の銘柄ともに見つからなかった場合
+    elif search_condition[0] == 1:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="一致する銘柄は見つかりませんでした。別の検索ワードをお試しください。")
         )
-    elif search_condition[0] == 1:
+
+    # 完全一致の銘柄が見つからず、かつ部分一致の銘柄が31種類以上見つかった場合
+    elif search_condition[0] == 2:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="該当する銘柄が見つかりませんでした。表示候補となる銘柄が多すぎます。別の検索ワードをお試しください。")
         )
-    elif search_condition[0] == 2:
+
+    # 完全一致の銘柄が見つからず、かつ部分一致の銘柄が30種類以下見つかった場合
+    elif search_condition[0] == 3:
         brand_list = search_condition[1]
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=("該当する銘柄が見つかりませんでした。以下の銘柄をお探しでしょうか？\n\n" + brand_list)),
+            TextSendMessage(text=("該当する銘柄が見つかりませんでした。以下の銘柄をお探しでしょうか？\n\n" + brand_list.rstrip))
         )
 
 
