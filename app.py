@@ -78,7 +78,7 @@ def handle_message(event):
         brand_list = search_condition[1]
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=("該当する銘柄が見つかりませんでした。以下の銘柄をお探しでしょうか？\n\n" + brand_list.rstrip))
+            TextSendMessage(text=("該当する銘柄が見つかりませんでした。以下の銘柄をお探しでしょうか？\n\n" + brand_list))
         )
 
 
