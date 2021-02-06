@@ -4,7 +4,6 @@ import get_sakenowa_api as gs
 
 def brand_list(event):
     search_word = event.message.text
-    search_word = search_word.replace('\n','')
     search_brands = gs.search_brands(search_word)
 
     # 検索ワードに一致する銘柄がない場合、その旨を返却
