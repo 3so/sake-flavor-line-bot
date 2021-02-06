@@ -56,19 +56,18 @@ def handle_message(event):
     if search_condition[0] == 0:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="一致する銘柄は見つかりませんでした。\n別の検索ワードをお試しください。")
+            TextSendMessage(text="一致する銘柄は見つかりませんでした。別の検索ワードをお試しください。")
         )
     elif search_condition[0] == 1:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="該当する銘柄が見つかりませんでした。\n候補となる銘柄が多すぎます。別の検索ワードをお試しください。")
+            TextSendMessage(text="該当する銘柄が見つかりませんでした。表示候補となる銘柄が多すぎます。別の検索ワードをお試しください。")
         )
     elif search_condition[0] == 2:
         brand_list = search_condition[1]
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="該当する銘柄が見つかりませんでした。\n以下の銘柄をお探しでしょうか？"),
-            TextSendMessage(text=brand_list)
+            TextSendMessage(text=("該当する銘柄が見つかりませんでした。以下の銘柄をお探しでしょうか？\n\n" + brand_list)),
         )
 
 
