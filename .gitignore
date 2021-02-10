@@ -1,2 +1,4 @@
+.gitignore
 channel_access_token/
 __pychache__/
+node_module/
