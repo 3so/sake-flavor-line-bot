@@ -7,7 +7,7 @@ def search_brand(event):
     search_brands = gs.search_brands(search_word)
 
     # 検索ワードに一致する銘柄がない場合、その旨を返却
-    elif len(search_brands) == 0:
+    if len(search_brands) == 0:
         return 0, "" # "該当する銘柄が見つかりませんでした。"
 
     # 候補が多すぎる場合、その旨を返却
@@ -23,6 +23,6 @@ def search_brand(event):
         return 2, brand_list
 
     # 該当する銘柄が1件だった場合、フレーバー情報を返却
-    if len(search_brands) == 1:
+    elif len(search_brands) == 1:
         search_brand = search_brands[0]
         return 3, search_brand["name"]
