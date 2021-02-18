@@ -82,8 +82,8 @@ def handle_message(event):
             [
                 TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
                 ImageSendMessage(
-                    original_content_url='https://sake-flavor-line-bot.herokuapp.com/flavor_chart.png',
-                    preview_image_url='https://sake-flavor-line-bot.herokuapp.com/flavor_chart.png'
+                    original_content_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png',
+                    preview_image_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png'
                 )
             ]
         )
