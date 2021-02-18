@@ -13,7 +13,7 @@ def get_flavor_chart(flavor):
 
     fig = px.line_polar(df, r=df[0], theta=df.index, line_close=True, range_r=[0,1])
     fig.update_layout(width=600)
-    fig.write_image('templates/flavor_chart.png')
+    fig.write_image('static/flavor_chart.png')
 
 flavor = {
     "brandId": 2,
