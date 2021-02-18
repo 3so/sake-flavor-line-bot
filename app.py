@@ -79,7 +79,13 @@ def handle_message(event):
         brand_name = search_condition[1]
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name))
+            [
+                TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
+                ImageSendMessage(
+                    original_content_url='https://sake-flavor-line-bot.herokuapp.com/flavor_chart.png',
+                    preview_image_url='https://sake-flavor-line-bot.herokuapp.com/flavor_chart.png'
+                )
+            ]
         )
 
 
