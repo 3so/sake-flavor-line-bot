@@ -8,13 +8,15 @@ import get_sakenowa_api
 def get_flavor_chart(flavor):
     flavor_chart = [flavor]
     df = pd.DataFrame(flavor_chart)
-    df = df.drop( ['brandId', 'brandName', 'flavor'], axis=1)
+    df = df.drop( ['brandId', 'brandName', 'flavorIs?'], axis=1)
     df = df.rename(columns={'f1':'華やか', 'f2':'芳醇', 'f3':'重厚', 'f4':'穏やか', 'f5':'ドライ', 'f6':'軽快'}).T
 
-    fig = px.line_polar(df, r=df[0], theta=df.index, line_close=True, range_r=[0,1])
-    fig.update_layout(width=600)
+    fig = px.line_polar(df, r=df[0], theta=df.index, line_close=True, range_r=[0,1], title=(flavor["brandName"] + "のフレーバーチャート"))
+    fig.update_layout(width=600, font=dict(size=22))
     fig.write_image('static/flavor_chart.png')
 
+
+# テスト
 flavor = {
     "brandId": 2,
     "f1": 0.5,
@@ -23,8 +25,8 @@ flavor = {
     "f4": 0.480473334729331,
     "f5": 0.47061712325654,
     "f6": 0.419411247406479,
-    "flavor" : "true",
-    "brandName" : "test"
+    "flavorIs?" : "true",
+    "brandName" : "獺祭"
     }
 
 get_flavor_chart(flavor)

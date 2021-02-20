@@ -48,20 +48,34 @@ def get_brands(brewery_id):
         selected_brands.insert(0, {"id":"","name":"選択してください","breweryId":""})
         return selected_brands
 
-def get_flavors(brand_id, brands):
+def get_flavor(brand):
     url = urls["フレーバー情報"]
     responce_flavors = requests.get(url).json()
     flavors = responce_flavors["flavorCharts"]
-    brand_name = ""
-    for brand in brands:
-        if brand["id"] == brand_id:
-            brand_name = brand["name"]
+    brand_id = brand["id"]
+    brand_name = brand["name"]
     for flavor in flavors:
         if flavor["brandId"] == brand_id:
-            flavor["flavor"] = "true"
+            flavor["flavorIs?"] = "true"
             flavor["brandName"] = brand_name
             return flavor
-    return { "brandId":brand_id, "brandName":brand_name, "flavor":""}
+    return { "brandId":brand_id, "brandName":brand_name, "flavorIs?":"false"}
+
+# 引用元そのまま
+# def get_flavors(brand_id, brands):
+#    url = urls["フレーバー情報"]
+#    responce_flavors = requests.get(url).json()
+#    flavors = responce_flavors["flavorCharts"]
+#    brand_name = ""
+#    for brand in brands:
+#        if brand["id"] == brand_id:
+#            brand_name = brand["name"]
+#    for flavor in flavors:
+#        if flavor["brandId"] == brand_id:
+#            flavor["flavor"] = "true"
+#            flavor["brandName"] = brand_name
+#            return flavor
+#    return { "brandId":brand_id, "brandName":brand_name, "flavor":""}
 
 def get_flavor_tags(brand_id):
     url = urls["フレーバータグ"]
