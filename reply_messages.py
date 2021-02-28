@@ -19,7 +19,7 @@ def search_brand(event):
         if flavor["flavorIs?"] == "true":
             fc.get_flavor_chart(flavor)
             # フレーバータグがある場合
-            if flavor_tags != []:
+            if flavor_tags != "":
                 return 0, 0, flavor["brandName"], flavor_tags
             # フレーバータグがない場合
             else:
@@ -27,7 +27,7 @@ def search_brand(event):
         # フレーバー情報がない場合
         else:
             # フレーバータグがある場合
-            if flavor_tags != []:
+            if flavor_tags != "":
                 return 1, 0, flavor["brandName"], flavor_tags
             # フレーバータグがない場合
             else:

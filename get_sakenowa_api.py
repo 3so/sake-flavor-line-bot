@@ -57,7 +57,7 @@ def get_flavor_tags(brand_id):
             tag_names_str = ""
             for tag_name in tag_names:
                 tag_names_str = tag_names_str + tag_name + "、"
-            tag_names_str = tag_names_str.rstrip
+            tag_names_str = tag_names_str.rstrip("、")
             return tag_names_str
 
 # 引用元そのまま
@@ -78,7 +78,6 @@ def get_flavor_tags(brand_id):
 #                        tag_names.append(flavor_tag["tag"])
 #            selected_brand_flavor_tag["tag_names"] = tag_names
 #            return selected_brand_flavor_tag
-
 
 def search_brands(input_text):
     url = urls["銘柄一覧"]
