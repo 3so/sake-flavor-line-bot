@@ -54,28 +54,60 @@ def handle_message(event):
 
     # 完全一致の銘柄が見つかり、フレーバー情報を持っている場合
     if search_condition[0] == 0:
-        brand_name = search_condition[1]
-        line_bot_api.reply_message(
-            event.reply_token,
-            [
-                TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
-                ImageSendMessage(
-                    original_content_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png',
-                    preview_image_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png'
-                )
-            ]
-        )
+        brand_name = search_condition[2]
+        # フレーバータグもある場合
+        if search_condition[1] == 0:
+            flavor_tags = search_condition[3]
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
+                    ImageSendMessage(
+                        original_content_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png',
+                        preview_image_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png'
+                    ),
+                    TextSendMessage(text=("フレーバータグは以下のとおりです。\n\n" + flavor_tags))
+                ]
+            )
+        # フレーバータグはない場合
+        else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
+                    ImageSendMessage(
+                        original_content_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png',
+                        preview_image_url='https://sake-flavor-line-bot.herokuapp.com/static/flavor_chart.png'
+                    ),
+                    TextSendMessage(text=("フレーバータグはの情報はありません。"))
+                ]
+            )
+
 
     # 完全一致の銘柄が見つかり、フレーバー情報を持っていない場合
     if search_condition[0] == 1:
-        brand_name = search_condition[1]
-        line_bot_api.reply_message(
-            event.reply_token,
-            [
-                TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
-                TextSendMessage(text=("この銘柄のフレーバー情報はありません。"))
-            ]
-        )
+        brand_name = search_condition[2]
+        # フレーバータグはある場合
+        if search_condition[1] == 0:
+            flavor_tags = search_condition[3]
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
+                    TextSendMessage(text=("この銘柄のフレーバー情報はありません。")),
+                    TextSendMessage(text=("フレーバータグは以下のとおりです。\n\n" + flavor_tags))
+                ]
+            )
+        # フレーバータグもない場合
+        else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                [
+                    TextSendMessage(text=("該当する銘柄が見つかりました。\n\n" + brand_name)),
+                    TextSendMessage(text=("この銘柄のフレーバー情報・フレーバータグはありません。"))
+                ]
+            )
+
 
     # 完全一致の銘柄、部分一致の銘柄ともに見つからなかった場合
     elif search_condition[0] == 2:

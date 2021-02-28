@@ -9,15 +9,29 @@ def search_brand(event):
 
     # 該当する銘柄が1件だった場合
     if len(search_brands) == 1:
+        # フレーバー情報の取得
         searched_brand = search_brands[0]
+        # フレーバー情報の取得
         flavor = gs.get_flavor(searched_brand)
+        # フレーバータグの取得
+        flavor_tags = gs.get_flavor_tags(searched_brand["id"])
         # フレーバー情報がある場合
         if flavor["flavorIs?"] == "true":
             fc.get_flavor_chart(flavor)
-            return 0, flavor["brandName"]
+            # フレーバータグがある場合
+            if flavor_tags != []:
+                return 0, 0, flavor["brandName"], flavor_tags
+            # フレーバータグがない場合
+            else:
+                return 0, 1, flavor["brandName"]
         # フレーバー情報がない場合
         else:
-            return 1, flavor["brandName"]
+            # フレーバータグがある場合
+            if flavor_tags != []:
+                return 1, 0, flavor["brandName"], flavor_tags
+            # フレーバータグがない場合
+            else:
+                return 1, 1, flavor["brandName"]
 
     # 検索ワードに一致する銘柄がない場合、その旨を返却
     elif len(search_brands) == 0:
